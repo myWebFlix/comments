@@ -1,0 +1,39 @@
+kumuluzee:
+  name: comments-service
+  env:
+    name: dev
+  version: 1.0.0
+  server:
+    base-url: http://localhost:8080
+    http:
+      port: 8080
+  datasources:
+    - jndi-name: jdbc/WebflixDS
+      connection-url: jdbc:postgresql://localhost:5432/webflix
+      username: postgres
+      password: postgres
+      max-pool-size: 20
+#  config:
+#    start-retry-delay-ms: 500
+#    max-retry-delay-ms: 900000
+#    etcd:
+#      hosts: http://localhost:2379 #,http://192.168.99.101:2379,http://192.168.99.102:2379
+  health:
+    checks:
+      data-source-health-check:
+        type: liveness
+        jndi-name: jdbc/WebflixDS
+#      etcd-health-check:
+#        type: liveness
+#        connection-url: http://localhost:2379/health
+#  metrics:
+#    web-instrumentation:
+#      - name: stream-endpoint
+#        url-pattern: /v1/*
+#        status-codes: "200, 500"
+#    servlet:
+#      enabled: true
+#      mapping: /metrics
+#rest-config:
+#  maintenance-mode: false
+#  broken: false
