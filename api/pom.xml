@@ -55,6 +55,11 @@
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.kumuluz.ee.cors</groupId>
+            <artifactId>kumuluzee-cors</artifactId>
+            <version>1.0.6</version>
+        </dependency>
     </dependencies>
 
     <build>

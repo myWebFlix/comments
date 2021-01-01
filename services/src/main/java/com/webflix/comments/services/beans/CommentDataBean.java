@@ -31,7 +31,7 @@ public class CommentDataBean {
 	@PostConstruct
 	private void init() {
 		httpClient = ClientBuilder.newClient();
-		baseUsersUrl = "http://martin.zoxxnet.com"; // "http://localhost:8090";
+		baseUsersUrl = "users:8080"; // "http://martin.zoxxnet.com"; // "http://localhost:8090";
 		baseUrl = "http://localhost:8090";
 	}
 

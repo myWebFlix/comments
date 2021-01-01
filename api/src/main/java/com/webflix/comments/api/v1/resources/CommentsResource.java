@@ -1,5 +1,6 @@
 package com.webflix.comments.api.v1.resources;
 
+import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.webflix.comments.models.entities.CommentEntity;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,6 +15,7 @@ import java.util.List;
 @Path("/comments")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class CommentsResource {
 
 	@Inject
