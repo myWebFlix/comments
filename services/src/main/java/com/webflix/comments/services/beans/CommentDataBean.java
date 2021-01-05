@@ -25,14 +25,10 @@ public class CommentDataBean {
 	private EntityManager em;
 
 	private Client httpClient;
-	private String baseUsersUrl;
-	private String baseUrl;
 
 	@PostConstruct
 	private void init() {
 		httpClient = ClientBuilder.newClient();
-		baseUsersUrl = "users:8080"; // "http://martin.zoxxnet.com"; // "http://localhost:8090";
-		baseUrl = "http://localhost:8090";
 	}
 
 	public String manageUser(String idTokenString) {
@@ -41,7 +37,7 @@ public class CommentDataBean {
 		try {
 			HttpClient client = HttpClients.custom().build();
 			HttpUriRequest request = RequestBuilder.get()
-					.setUri(baseUsersUrl + "/users/v1/user") //.setUri(baseUrl + "/v1/user")
+					.setUri("http://users:8080/v1/auth")
 					.setHeader("ID-Token", idTokenString)
 					.build();
 			userAuthResponse = client.execute(request);

@@ -23,7 +23,7 @@ public class CommentsResource {
 
 	@GET
 	@Path("/{idVideo}")
-	public Response getUser(@HeaderParam("ID-Token") String idTokenString,
+	public Response getComment(@HeaderParam("ID-Token") String idTokenString,
 							@PathParam("idVideo") Integer idVideo) {
 		String userId = commentDataBean.manageUser(idTokenString);
 
@@ -42,7 +42,7 @@ public class CommentsResource {
 
 	@POST
 	@Path("/{idVideo}")
-	public Response createVideoMetadata(@HeaderParam("ID-Token") String idTokenString,
+	public Response postComment(@HeaderParam("ID-Token") String idTokenString,
 										CommentEntity comment,
 										@PathParam("idVideo") Integer idVideo) {
 
@@ -71,7 +71,7 @@ public class CommentsResource {
 
 	@DELETE
 	@Path("{commentId}")
-	public Response deleteVideoMetadata(@HeaderParam("ID-Token") String idTokenString,
+	public Response deleteComment(@HeaderParam("ID-Token") String idTokenString,
 										@PathParam("commentId") Integer commentId) {
 
 		String userId = commentDataBean.manageUser(idTokenString);
