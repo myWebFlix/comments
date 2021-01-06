@@ -13,11 +13,11 @@ kumuluzee:
       username: postgres
       password: postgres
       max-pool-size: 20
-#  config:
-#    start-retry-delay-ms: 500
-#    max-retry-delay-ms: 900000
-#    etcd:
-#      hosts: http://localhost:2379 #,http://192.168.99.101:2379,http://192.168.99.102:2379
+  config:
+    start-retry-delay-ms: 500
+    max-retry-delay-ms: 900000
+    etcd:
+      hosts: http://etcd:2379 # http://localhost:2379 #,http://192.168.99.101:2379,http://192.168.99.102:2379
   health:
     checks:
       data-source-health-check:
@@ -34,6 +34,5 @@ kumuluzee:
 #    servlet:
 #      enabled: true
 #      mapping: /metrics
-#rest-config:
-#  maintenance-mode: false
-#  broken: false
+rest-config:
+  disable-comments-submit: false

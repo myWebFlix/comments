@@ -2,6 +2,7 @@ package com.webflix.comments.api.v1.resources;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
 import com.webflix.comments.models.entities.CommentEntity;
+import com.webflix.comments.services.config.RestConfig;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,6 +21,9 @@ public class CommentsResource {
 
 	@Inject
 	private com.webflix.comments.services.beans.CommentDataBean commentDataBean;
+
+	@Inject
+	private RestConfig restConfig;
 
 	@GET
 	@Path("/{idVideo}")
@@ -48,25 +52,28 @@ public class CommentsResource {
 
 		String userId = commentDataBean.manageUser(idTokenString);
 
-		if (userId != null) {
-
-			if (comment.getComment_text().length() <= 0) {
-				return Response.status(Response.Status.BAD_REQUEST).build();
-			} else {
-				comment.setComment_user_id(userId);
-				comment.setComment_timestamp(new Date());
-				comment.setVideo_id(idVideo);
-				comment = commentDataBean.createComment(comment);
-			}
-
-			return Response.status(Response.Status.OK).entity(comment).build();
-
+		if (restConfig.isDisableCommentsSubmit()) {
+			return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
 		} else {
+			if (userId != null) {
 
-			return Response.status(Response.Status.UNAUTHORIZED).build();
+				if (comment.getComment_text().length() <= 0) {
+					return Response.status(Response.Status.BAD_REQUEST).build();
+				} else {
+					comment.setComment_user_id(userId);
+					comment.setComment_timestamp(new Date());
+					comment.setVideo_id(idVideo);
+					comment = commentDataBean.createComment(comment);
+				}
 
+				return Response.status(Response.Status.OK).entity(comment).build();
+
+			} else {
+
+				return Response.status(Response.Status.UNAUTHORIZED).build();
+
+			}
 		}
-
 	}
 
 	@DELETE
