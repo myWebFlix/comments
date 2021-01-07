@@ -22,7 +22,7 @@ public class CommentEntity {
 	private Integer video_id;
 
 	@Column(name = "comment_user_id")
-	private String comment_user_id;
+	private Integer comment_user_id;
 
 	@Column(name = "comment_timestamp")
 	private Date comment_timestamp;
@@ -46,11 +46,11 @@ public class CommentEntity {
 		this.video_id = video_id;
 	}
 
-	public String getComment_user_id() {
+	public Integer getComment_user_id() {
 		return comment_user_id;
 	}
 
-	public void setComment_user_id(String comment_user_id) {
+	public void setComment_user_id(Integer comment_user_id) {
 		this.comment_user_id = comment_user_id;
 	}
 

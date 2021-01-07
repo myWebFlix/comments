@@ -1,6 +1,7 @@
 package com.webflix.comments.api.v1.resources;
 
 import com.kumuluz.ee.cors.annotations.CrossOrigin;
+import com.webflix.comments.models.dtos.Comment;
 import com.webflix.comments.models.entities.CommentEntity;
 import com.webflix.comments.services.config.RestConfig;
 
@@ -27,13 +28,13 @@ public class CommentsResource {
 
 	@GET
 	@Path("/{idVideo}")
-	public Response getComment(@HeaderParam("ID-Token") String idTokenString,
+	public Response getComments(@HeaderParam("ID-Token") String idTokenString,
 							@PathParam("idVideo") Integer idVideo) {
-		String userId = commentDataBean.manageUser(idTokenString);
+		Integer userId = commentDataBean.manageUser(idTokenString);
 
 		if (userId != null) {
 
-			List<CommentEntity> commentsForVideo = commentDataBean.getCommentsData(idVideo);
+			List<Comment> commentsForVideo = commentDataBean.getComments(idVideo);
 
 			return Response.ok(commentsForVideo).build();
 
@@ -50,7 +51,7 @@ public class CommentsResource {
 										CommentEntity comment,
 										@PathParam("idVideo") Integer idVideo) {
 
-		String userId = commentDataBean.manageUser(idTokenString);
+		Integer userId = commentDataBean.manageUser(idTokenString);
 
 		if (restConfig.isDisableCommentsSubmit()) {
 			return Response.status(Response.Status.SERVICE_UNAVAILABLE).build();
@@ -81,7 +82,7 @@ public class CommentsResource {
 	public Response deleteComment(@HeaderParam("ID-Token") String idTokenString,
 										@PathParam("commentId") Integer commentId) {
 
-		String userId = commentDataBean.manageUser(idTokenString);
+		Integer userId = commentDataBean.manageUser(idTokenString);
 
 		if (userId != null) {
 

@@ -24,13 +24,27 @@
         </dependency>
 
         <dependency>
-            <groupId>com.webflix</groupId>
-            <artifactId>comments-models</artifactId>
+            <groupId>com.kumuluz.ee.fault.tolerance</groupId>
+            <artifactId>kumuluzee-fault-tolerance-smallrye</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.webflix</groupId>
+            <artifactId>comments-models</artifactId>
         </dependency>
     </dependencies>
 
