@@ -100,23 +100,30 @@ public class CommentDataBean {
 				}).collect(Collectors.toList());
 	}
 
-	@Retry
+	// @Retry
 	@Timeout(value = 2, unit = ChronoUnit.SECONDS)
 	@CircuitBreaker(requestVolumeThreshold = 3)
 	@Fallback(fallbackMethod = "getUserNameFallback")
 	public String getUserName(Integer userId) {
 		try {
+//			HttpGet httpGet = new HttpGet("http://users:8080/v1/users/" + userId);
+//			HttpResponse response = httpClient.execute(httpGet);
+//
+//			String json = EntityUtils.toString(response.getEntity());
+//			JSONObject obj = new JSONObject(json);
+//
+//			return obj.getString("user_name");
+
 			String url = "http://users:8080/v1/users/" + userId;
-			if (restConfig.isDisableUserInfo()) {
-				url = "http://users:8081/v1/users/" + userId;
-			}
+			if (restConfig.isDisableUserInfo())
+				url = "http://users:9091/v1/users/" + userId; // Fake url for demo
 
-			HttpGet httpGet = new HttpGet(url);
-			HttpResponse response = httpClient.execute(httpGet);
+			Client httpClient = ClientBuilder.newClient();
+			String json = httpClient
+					.target(url)
+					.request().get(String.class);
 
-			String json = EntityUtils.toString(response.getEntity());
 			JSONObject obj = new JSONObject(json);
-
 			return obj.getString("user_name");
 
 		} catch (Exception e) {
