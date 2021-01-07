@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.ws.rs.InternalServerErrorException;
@@ -39,6 +40,9 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 public class CommentDataBean {
+
+	@Inject
+	private CommentDataBean commentDataBeanProxy;
 
 	@PersistenceContext(unitName = "webflix-jpa")
 	private EntityManager em;
@@ -81,22 +85,15 @@ public class CommentDataBean {
 	}
 
 	public List<Comment> getComments(Integer videoId) {
-
-//		List<CommentEntity> ce = em.createQuery(
-//				"SELECT c FROM CommentEntity c WHERE c.video_id = :videoId", CommentEntity.class)
-//				.setParameter("videoId", videoId)
-//				.getResultList();
-
 		return em.createQuery(
 				"SELECT c FROM CommentEntity c WHERE c.video_id = :videoId", CommentEntity.class)
 				.setParameter("videoId", videoId)
 				.getResultList()
 				.stream().map(entity -> {
 					Comment comment = CommentConverter.toDto(entity);
-					comment.setUser_name(getUserName(entity.getComment_user_id()));
+					comment.setUser_name(commentDataBeanProxy.getUserName(entity.getComment_user_id()));
 					return comment;
 				}).collect(Collectors.toList());
-
 	}
 
 	@Retry
@@ -104,7 +101,6 @@ public class CommentDataBean {
 	@CircuitBreaker(requestVolumeThreshold = 3)
 	@Fallback(fallbackMethod = "getUserNameFallback")
 	public String getUserName(Integer userId) {
-		System.out.println("Getting user name");
 		try {
 			HttpGet httpGet = new HttpGet("http://users:8080/v1/users/" + userId);
 			HttpResponse response = httpClient.execute(httpGet);
