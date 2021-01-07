@@ -3,6 +3,7 @@ package com.webflix.comments.services.beans;
 import com.webflix.comments.models.converters.CommentConverter;
 import com.webflix.comments.models.dtos.Comment;
 import com.webflix.comments.models.entities.CommentEntity;
+import com.webflix.comments.services.config.RestConfig;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
@@ -40,6 +41,9 @@ import java.util.stream.Collectors;
 
 @RequestScoped
 public class CommentDataBean {
+
+	@Inject
+	private RestConfig restConfig;
 
 	@Inject
 	private CommentDataBean commentDataBeanProxy;
@@ -102,7 +106,12 @@ public class CommentDataBean {
 	@Fallback(fallbackMethod = "getUserNameFallback")
 	public String getUserName(Integer userId) {
 		try {
-			HttpGet httpGet = new HttpGet("http://users:8080/v1/users/" + userId);
+			String url = "http://users:8080/v1/users/" + userId;
+			if (restConfig.isDisableUserInfo()) {
+				url = "http://users:8081/v1/users/" + userId;
+			}
+
+			HttpGet httpGet = new HttpGet(url);
 			HttpResponse response = httpClient.execute(httpGet);
 
 			String json = EntityUtils.toString(response.getEntity());

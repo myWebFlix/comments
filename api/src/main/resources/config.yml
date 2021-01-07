@@ -36,3 +36,4 @@ kumuluzee:
 #      mapping: /metrics
 rest-config:
   disable-comments-submit: false
+  disable-user-info: false

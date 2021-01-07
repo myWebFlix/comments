@@ -9,6 +9,12 @@ import javax.enterprise.context.ApplicationScoped;
 @ConfigBundle("rest-config")
 public class RestConfig {
 
+	@ConfigValue(watch = true)
+	private boolean disableCommentsSubmit;
+
+	@ConfigValue(watch = true)
+	private boolean disableUserInfo;
+
 	public boolean isDisableCommentsSubmit() {
 		return disableCommentsSubmit;
 	}
@@ -17,6 +23,12 @@ public class RestConfig {
 		this.disableCommentsSubmit = disableCommentsSubmit;
 	}
 
-	@ConfigValue(watch = true)
-	private boolean disableCommentsSubmit;
+
+	public boolean isDisableUserInfo() {
+		return disableUserInfo;
+	}
+
+	public void setDisableUserInfo(boolean disableUserInfo) {
+		this.disableUserInfo = disableUserInfo;
+	}
 }
