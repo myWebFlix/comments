@@ -13,7 +13,7 @@ spec:
         app: comments
     spec:
       containers:
-        - image: webflix/comments:2021-01-08-05-14-34
+        - image: webflix/comments:2021-01-08-06-17-31
           name: comments
           env:
             - name: KUMULUZEE_DATASOURCES0_CONNECTIONURL
