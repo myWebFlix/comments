@@ -17,7 +17,7 @@ import java.util.List;
 @Path("/comments")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-@CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
+// DO NOT UNCOMMENT // @CrossOrigin(supportedMethods = "GET, POST, HEAD, DELETE, OPTIONS")
 public class CommentsResource {
 
 	@Inject

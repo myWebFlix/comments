@@ -34,6 +34,10 @@ kumuluzee:
 #    servlet:
 #      enabled: true
 #      mapping: /metrics
+  cors-filter:
+    servlet:
+      allow-origin: "*"
+      supported-methods: "GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD"
 rest-config:
   disable-comments-submit: false
   disable-user-info: false
